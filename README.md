@@ -7,4 +7,5 @@ I use the
 
 # Reference
 [1] Chan, T., Durocher, M., Larsen, S., Morrison, K., & Wilkinson, G. (2014). Linear-Space Data Structures for Range Mode Query in Arrays. Theory of Computing Systems, 55(4), 719-741.
+
 [2] Simon Gog, Timo Beller, Alistair Moffat, Matthias Petri: From Theory to Practice: Plug and Play with Succinct Data Structures. SEA 2014: 326-337
