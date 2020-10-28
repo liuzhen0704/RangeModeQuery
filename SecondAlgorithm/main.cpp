@@ -159,6 +159,59 @@ int Timothy_Second(int array[], int len, int s)
     int blocks = ceil(len / t + 0.0);
     int diff = s - blocks;
 }
+int getCandidateFreq(int upper_line_array[],int A_Prime[], map<int,int> QaMap, int len, int **Qa, int freq_c, int x, int i, int j) {
+    /*  for (int i = 0; i < row; i++) {
+          for (int j = 0; j < QaMap[i + 1]; j++) {
+            //  cout<<*(Qa+i*col+j)<<" ";
+            cout << Qa[i][j] <<" ";
+          }
+          cout << endl;
+      }*/
+
+    //   cout << *(Qa+1*col+2)<<endl;
+    //Qa[upper_line_array[x-1] - 1][q]
+
+    int currentKey = 0;
+
+    //  cout << "x " << x << " QaMap: " << QaMap[upper_line_array[x-1]] << endl;
+    for (int q = A_Prime[x-1] + freq_c - 1; q  < QaMap[upper_line_array[x-1]]; q++) {
+        if (Qa[upper_line_array[x-1] - 1][q] > j) {
+            break;
+        }
+        currentKey = q;
+    }
+    //  cout << "currentKey : " << currentKey << endl;
+    int freq = currentKey - A_Prime[x-1] + 1;
+
+    return freq;
+}
+int getSuffixCandidateFreq(int upper_line_array[],int A_Prime[], map<int,int> QaMap, int len, int **Qa, int freq_c, int x, int i, int j) {
+    /* for (int i = 0; i < row; i++) {
+         for (int j = 0; j < QaMap[i + 1]; j++) {
+             //  cout<<*(Qa+i*col+j)<<" ";
+             cout << Qa[i][j] <<" ";
+         }
+         cout << endl;
+     }*/
+
+    //   cout << *(Qa+1*col+2)<<endl;
+    //Qa[upper_line_array[x-1] - 1][q]
+
+    int currentKey = 0;
+    for (int q = A_Prime[x-1]; q  >= 0; q--) {
+        if (Qa[upper_line_array[x-1] - 1][q]  < i) {
+            //  cout << q   <<"  "  << Qa[upper_line_array[x-1] - 1][q] <<" chu lai le";
+            break;
+        }
+        /*cout << "x " << x  << "  A_Prime[x-1]  " << A_Prime[x-1] << " Qa[" << upper_line_array[x-1] - 1 <<
+             "][" << q << "]" <<endl;*/
+        currentKey = q;
+    }
+
+    int freq = A_Prime[x-1] - currentKey + 1;
+
+    return freq;
+}
 void read_file(int array[], string file, int len) {
     ifstream file_in(file);
     int temp;
