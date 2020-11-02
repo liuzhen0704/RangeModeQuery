@@ -159,6 +159,39 @@ int Timothy_Second(int array[], int len, int s)
     int blocks = ceil(len / t + 0.0);
     int diff = s - blocks;
 }
+void generate_query(int *tiny_query, int *med_query, int *huge_query, int query){
+    int len = query;
+    string tiny_file = "/home/liu1/Desktop/tiny.txt";
+    string med_file = "/home/liu1/Desktop/med.txt";
+    string huge_file = "/home/liu1/Desktop/huge.txt";
+    ifstream tiny_in(tiny_file);
+    ifstream med_in(med_file);
+    ifstream huge_in(huge_file);
+    if (!tiny_in.is_open()) {
+        cout << " cannot open the tiny file" << endl;
+    }
+    for (int i = 0; i < len; i++) {
+        tiny_in >> tiny_query[i];
+    }
+    if (!med_in.is_open()) {
+        cout << " cannot open the med file" << endl;
+    }
+    for (int i = 0; i < len; i++) {
+        med_in >> med_query[i];
+    }
+    if (!huge_in.is_open()) {
+        cout << " cannot open the huge file" << endl;
+    }
+    for (int i = 0; i < len; i++) {
+        huge_in >> huge_query[i];
+    }
+    tiny_in.close();
+    tiny_in.clear();
+    med_in.close();
+    med_in.clear();
+    huge_in.close();
+    huge_in.clear();
+}
 int getCandidateFreq(int upper_line_array[],int A_Prime[], map<int,int> QaMap, int len, int **Qa, int freq_c, int x, int i, int j) {
     /*  for (int i = 0; i < row; i++) {
           for (int j = 0; j < QaMap[i + 1]; j++) {
