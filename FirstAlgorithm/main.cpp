@@ -30,7 +30,7 @@ int main() {
     int s = ceil(sqrt(len));     // fixed value : the number of blocks
     //cout << " s: " << s << endl;
     int *array = new int[len];
-    string file_in = "/home/liu1/Desktop/data.txt";
+    string file_in = "/users/grad/liu1/data.txt";
     read_file(array, file_in, len);
 
     // std::cout << "Please input the value of s!" << std::endl;
@@ -53,12 +53,12 @@ int main() {
 void Timothy_First(int array[], int len, int s) {
     int start_index = 0;
     int end_index = 0;
-    int *tiny_query = new int[2000];
-    int *med_query = new int[2000];
-    int *huge_query = new int[2000];
-    int *result = new int[3000];
+    int *tiny_query = new int[100000];
+    int *med_query = new int[100000];
+    int *huge_query = new int[100000];
+    int *result = new int[150000];
     // int second_point = rand_point(len);
-    generate_query(tiny_query, med_query, huge_query, 2000);
+    generate_query(tiny_query, med_query, huge_query, 100000);
     double vm, rss;
     process_mem_usage(vm, rss);
     cout << "Start:" << "  " << "VM: " << vm << "; RSS: " << rss << endl;
@@ -74,23 +74,19 @@ void Timothy_First(int array[], int len, int s) {
     process_mem_usage(vm, rss);
     cout << "D:" << "  " << "VM: " << vm << "; RSS: " << rss << endl;
     int delta = D.size();  // save the value of delta
-
+    int upper_line_array[len];   // upper_line_array
     map<int, int> setMap;
     int count1 = 1;
     set<int>::iterator it;
+
     for(it=D.begin();it!=D.end();it++)  //get the upper_line_array  nlogΔ
     {
         setMap.insert(make_pair(*it, count1));
         count1++;
     }
-
-    int *upper_line_array = new int[len];  // upper_line_array
-
     for (int i = 0; i < len; i++) {
         upper_line_array[i] = setMap[array[i]];
     }  // the end of getting upper_line_array
-
-
     /* for (int i = 0; i < len; i++) {      // get the upper_line_array
          int count = 1;
          set<int>::iterator iter = D.begin();
@@ -108,9 +104,10 @@ void Timothy_First(int array[], int len, int s) {
           cout << i << "  ";
       }
       cout << endl;*/
+
     map<int,int> QaMap;
-    int *A_Prime = new int[len];
-    cout <<"daozhe4444" << endl;
+    int A_Prime[len];
+
     for (int i = 0; i < len; i++) {  //traverse the upper_line_array for getting the length of every row in Qa
         QaMap[upper_line_array[i]]++;
         A_Prime[i] = QaMap[upper_line_array[i]] - 1;
@@ -186,46 +183,46 @@ void Timothy_First(int array[], int len, int s) {
     // start_index = 1, end_index = 100000;
     process_mem_usage(vm, rss);
     cout << "S and S' table:" << "  " << "VM: " << vm << "; RSS: " << rss << endl;
-    clock_t start_time, end_time;
+    //clock_t start_time, end_time;
     clock_t tiny_start_time, tiny_end_time, med_start_time, med_end_time, huge_start_time, huge_end_time;
-    for (int i = 0; i < 6000; i+=2) {            // tiny 0 - 999  med 1000 - 1999 huge 2000-2999
+    for (int i = 0; i < 300000; i+=2) {            // tiny 0 - 999  med 1000 - 1999 huge 2000-2999
 
-        if (i < 2000) {
+        if (i < 100000) {
             //continue;
             if (i == 0) {
                 tiny_start_time = clock();
                 cout << "Tiny Query is:" <<endl;
             }
-            // cout << i <<" ";
-            if (i == 1998) {
+             cout << i <<" ";
+            if (i == 99998) {
                 tiny_end_time = clock();
                 cout << " Tiny Query Total Time : " << (double)(tiny_end_time - tiny_start_time) / CLOCKS_PER_SEC <<" s " << endl;
             }
             start_index = tiny_query[i];
             end_index = tiny_query[i + 1];
-        } else if (i < 4000) {
+        } else if (i < 200000) {
             // continue;
-            if (i == 2000) {
+            if (i == 100000) {
                 med_start_time = clock();
                 cout << "Med Query is:" <<endl;
             }
             // cout << i <<" ";
-            start_index = med_query[i - 2000];
-            end_index = med_query[i + 1 - 2000];
-            if (i == 3998) {
+            start_index = med_query[i - 100000];
+            end_index = med_query[i + 1 - 100000];
+            if (i == 199998) {
                 med_end_time = clock();
                 cout << " Med Query Total Time : " << (double)(med_end_time - med_start_time) / CLOCKS_PER_SEC <<" s " << endl;
             }
         } else {
-            if (i == 4000) {
+            if (i == 200000) {
                 cout << "Huge Query is:" <<endl;
                 huge_start_time = clock();
             }
             // cout << i <<" ";
-            start_index = huge_query[i - 4000];
-            end_index = huge_query[i + 1 - 4000];
+            start_index = huge_query[i - 200000];
+            end_index = huge_query[i + 1 - 200000];
         }
-        start_time = clock();
+        //start_time = clock();
         int bi = ceil((float)(start_index-1)/t), bj = floor(end_index/t) - 1;
         int span_start = bi * t + 1;
         int span_end = (bj + 1) * t;
@@ -239,7 +236,7 @@ void Timothy_First(int array[], int len, int s) {
          <<"  suffix_start: "<< suffix_start <<"  suffix_end: " << suffix_end << endl;*/
         int c = 0;  // candidate
         int freq_c = 0;
-        if (bi < bj) {
+        if (bi <= bj) {
             int span_mode = S[(span_start - 1) / t][(span_end / t) - 1];
             // cout << endl;
             c = span_mode;  // candidate
@@ -306,9 +303,9 @@ void Timothy_First(int array[], int len, int s) {
     } // end of for query
     huge_end_time = clock();
     cout << " Huge Query Total Time : " << (double)(huge_end_time - huge_start_time) / CLOCKS_PER_SEC <<" s " << endl;
-    end_time = clock();
-    cout << "Total Time : " << (double)(end_time - start_time) / CLOCKS_PER_SEC <<" s " << endl;
-    delete []array;
+    //end_time = clock();
+    //cout << "Total Time : " << (double)(end_time - start_time) / CLOCKS_PER_SEC <<" s " << endl;
+    //delete []array;
     for (int i = 0; i < delta; i++) {
         delete[] Qa[i];
     }
@@ -324,10 +321,8 @@ void Timothy_First(int array[], int len, int s) {
     delete[] tiny_query;
     delete[] med_query;
     delete[] huge_query;
-    delete[] upper_line_array;
-    delete[] A_Prime;
-    ofstream first_result("/home/liu1/Desktop/first_result.txt");
-    for (int i = 0; i < 3000; i++) {
+    ofstream first_result("/users/grad/liu1/first_result.txt");
+    for (int i = 0; i < 150000; i++) {
         //cout << "i: " << i <<"  "<< result[i] << endl;
         //cout << result[i] << "  ";
         first_result << result[i] << " ";
@@ -347,9 +342,9 @@ void Timothy_First(int array[], int len, int s) {
 }
 void generate_query(int *tiny_query, int *med_query, int *huge_query, int query){
     int len = query;
-    string tiny_file = "/home/liu1/Desktop/tiny.txt";
-    string med_file = "/home/liu1/Desktop/med.txt";
-    string huge_file = "/home/liu1/Desktop/huge.txt";
+    string tiny_file = "/users/grad/liu1/tiny.txt";
+    string med_file = "/users/grad/liu1/med.txt";
+    string huge_file = "/users/grad/liu1/huge.txt";
     ifstream tiny_in(tiny_file);
     ifstream med_in(med_file);
     ifstream huge_in(huge_file);
