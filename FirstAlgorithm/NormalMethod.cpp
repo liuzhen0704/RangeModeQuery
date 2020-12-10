@@ -59,7 +59,7 @@ int main() {
             }
             start_index = tiny_query[i];
             end_index = tiny_query[i + 1];
-            //cout << "Num: " << i / 2 << " start: " << start_index << " end: " << end_index;
+            cout << "Num: " << i / 2 << " start: " << start_index << " end: " << end_index;
         } else if (i < 4000) {
             // continue;
             if (i == 2000) {
@@ -115,7 +115,7 @@ int main() {
          process_mem_usage(vm3, rss3);
          cout << "VM: " << vm3 << "; RSS: " << rss3 << endl;*/
       //  cout << "Query is : " << start_index << " - " << end_index << "  ";
-       // cout << "  Mode is : " << mode << "  , Frequency is : " << maxFreq << endl;
+        cout << "  Mode is : " << mode << "  , Frequency is : " << maxFreq << endl;
         result[(i / 2)] = maxFreq;
     }
     huge_end_time = clock();
