@@ -1,8 +1,4 @@
 //
-// Created by liu1 on 2020-12-02.
-//
-
-//
 // Created by liu1 on 11/27/20.
 //
 
@@ -23,10 +19,10 @@ int main() {
     cin >> alpha;
     //cout << " s: " << s << endl;
     int *originalArray = new int[3000];
-    string file_in = "/users/grad/liu1/normal_result.txt";
+    string file_in = "/home/liu1/Desktop/normal_result.txt";
     read_file(originalArray, file_in, len);
     int *approximateArray = new int[3000];
-    string file_in_2 = "/users/grad/liu1/approximate_result.txt";
+    string file_in_2 = "/home/liu1/Desktop/approximate_result.txt";
     read_file(approximateArray, file_in_2, len);
     for (int i = 0; i < 3000; i++) {
         if (originalArray[i] * alpha <= approximateArray[i]) {
