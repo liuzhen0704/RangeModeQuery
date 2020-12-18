@@ -1,8 +1,4 @@
 //
-// Created by liu1 on 2020-12-02.
-//
-
-//
 // Created by liu1 on 11/18/20.
 //
 
@@ -35,12 +31,12 @@ public:
 };
 
 int main() {
-    ofstream file_out("/users/grad/liu1/data.txt");
+    ofstream file_out("/home/liu1/Desktop/data.txt");
     int length;
     cout << "the length of randomized array : ";
     cin >> length;
     int num = 0;
-    Generator g(0, 500);
+    Generator g(0, 10000);
     for (int i = 0; i < length; i++) {
         num = g();
         //cout << num << endl;
